@@ -10,11 +10,11 @@ install_required_tools:
        - sudo apt install docker.io -y && sudo chmod 666 /var/run/docker.sock
        - sudo snap install kubectl --classic
     tags : 
-        - prd
+        - self
 
 unit_test:
     stage : test
     script :
         - mvn-test
     tags : 
-        - prd
+        - self
