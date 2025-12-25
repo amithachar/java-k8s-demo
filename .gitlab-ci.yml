@@ -25,8 +25,8 @@ build_docker_image:
     script :
         - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         - mvn package
-        - docker build -t amithachar/F1-deploy:latest .
-        - docker push -t amithachar/F1-deploy:latest 
+        - docker build -t amithachar/f1-deploy:latest .
+        - docker push -t amithachar/f1-deploy:latest 
     tags : 
         - self   
     
