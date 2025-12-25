@@ -1,6 +1,7 @@
 stages:
     - install_tools
     - test
+    - build
 
 install_required_tools:
     stage: install_tools
@@ -18,3 +19,14 @@ unit_test:
         - mvn test
     tags : 
         - self
+
+build_docker_image:
+    stage: build
+    script :
+        - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        - mvn package
+        - docker build -t amithachar/F1-deploy:latest .
+        - docker push -t amithachar/F1-deploy:latest 
+    tags : 
+        - self   
+    
