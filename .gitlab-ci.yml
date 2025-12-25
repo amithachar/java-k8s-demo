@@ -1,0 +1,20 @@
+stages:
+    - install_tools
+    - test
+
+install_required_tools:
+    stage: install_tools
+    script: 
+       - sudo apt install openjdk-17-jre-headless -y
+       - sudo apt install maven -y
+       - sudo apt install docker.io -y && sudo chmod 666 /var/run/docker.sock
+       - sudo snap install kubectl --classic
+    tags : 
+        - prd
+
+unit_test:
+    stage : test
+    script :
+        - mvn-test
+    tags : 
+        - prd
