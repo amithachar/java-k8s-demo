@@ -15,6 +15,6 @@ install_required_tools:
 unit_test:
     stage : test
     script :
-        - mvn-test
+        - mvn test
     tags : 
         - self
