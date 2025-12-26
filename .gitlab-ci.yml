@@ -29,4 +29,13 @@ build_docker_image:
         - docker push amithachar/f1-deploy:latest 
     tags : 
         - self   
+
+deploy_to_eks:
+  stage: deploy
+  script:
+    - aws eks update-kubeconfig --region ap-south-1 --name f1-cluster
+    - kubectl apply -f k8s/
+  tags:
+    - self
+
     
