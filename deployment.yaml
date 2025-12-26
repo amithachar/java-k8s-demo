@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: f1-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: f1
+  template:
+    metadata:
+      labels:
+        app: f1
+    spec:
+      containers:
+      - name: f1-container
+        image: amithachar/f1-deploy:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
