@@ -2,6 +2,7 @@ stages:
     - install_tools
     - test
     - build
+    - deploy
 
 install_required_tools:
     stage: install_tools
