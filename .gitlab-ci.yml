@@ -1,0 +1,42 @@
+stages:
+    - install_tools
+    - test
+    - build
+    - deploy
+
+install_required_tools:
+    stage: install_tools
+    script: 
+       - sudo apt install openjdk-17-jre-headless -y
+       - sudo apt install maven -y
+       - sudo apt install docker.io -y && sudo chmod 666 /var/run/docker.sock
+       - sudo snap install kubectl --classic
+    tags : 
+        - self
+
+unit_test:
+    stage : test
+    script :
+        - mvn test
+    tags : 
+        - self
+
+build_docker_image:
+    stage: build
+    script :
+        - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        - mvn package
+        - docker build -t amithachar/f1-deploy:latest .
+        - docker push amithachar/f1-deploy:latest 
+    tags : 
+        - self   
+
+deploy_to_eks:
+  stage: deploy
+  script:
+    - aws eks update-kubeconfig --region ap-south-1 --name f1-cluster
+    - kubectl apply -f k8s/
+  tags:
+    - self
+
+    
